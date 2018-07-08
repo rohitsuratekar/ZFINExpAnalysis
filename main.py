@@ -1,13 +1,15 @@
 """
-Expression data from https://zfin.org/downloads
-on 6 July 2018
+Rohit Suratekar
+July 2018
 
-Column Headers
+Basic analysis of zebrafish expression database present in ZFIN (
+https://zfin.org)
 
-1. Gene ID 	2. Gene Symbol 	3. Fish Name 	4. Super Structure ID
-5. Super Structure Name 	6. Sub Structure ID  	7. Sub Structure Name
-8. Start Stage 	9. End Stage 	10. Assay 	11. Publication ID 	12. Probe ID
-13. Antibody ID 	14. Fish ID
+All downloaded files are kept in "/database" folder
+1. Expression data
+2. Ontology data
+3. Anatomy items
+4. Anatomy data
 """
 
 from collections import Counter
@@ -214,7 +216,7 @@ def expression_profile(gene_name, organ=None, with_parent=False):
     plt.show()
 
 
-expression_profile("zic3", "brain", True)
+expression_profile("gata4", "heart")
 # check_hist()
 # genes_in_organ("cardiac ventricle")
 # localization("zic3", False)

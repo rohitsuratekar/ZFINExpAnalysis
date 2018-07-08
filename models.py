@@ -1,9 +1,8 @@
 """
-Expression data from https://zfin.org/downloads
+All data sets are from https://zfin.org/downloads
 on 6 July 2018
 
-Column Headers
-
+Expression headers
 1. Gene ID 	2. Gene Symbol 	3. Fish Name 	4. Super Structure ID
 5. Super Structure Name 	6. Sub Structure ID  	7. Sub Structure Name
 8. Start Stage 	9. End Stage 	10. Assay 	11. Publication ID 	12. Probe ID
@@ -17,6 +16,9 @@ Anatomy Relationship
 
 Anatomy items
 1.Anatomy ID	2.Anatomy Name	3.Start Stage ID	4.End Stage ID
+
+We added "ZFA:0100000	zebrafish anatomical entity	None	None" line to
+anatomy database file to include missing entries
 """
 
 all_dev_stages = {}
