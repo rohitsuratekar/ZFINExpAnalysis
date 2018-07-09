@@ -63,18 +63,21 @@ class DevStage:
 
 with open("database\\anatomy_item_2018.07.06.txt") as f:
     for line in f:
-        a = AnatomyItem(line)
-        anatomy_items[a.id] = a
+        if len(line.split("\t")) > 0:
+            a = AnatomyItem(line)
+            anatomy_items[a.id] = a
 
 with open("database\\anatomy_relationship_2018.07.06.txt") as f:
     for line in f:
-        r = AnatomyRelation(line.strip())
-        relations[r.child] = r
+        if len(line.split("\t")) > 0:
+            r = AnatomyRelation(line.strip())
+            relations[r.child] = r
 
 with open("database\stage_ontology_2018.07.06.txt") as f:
     for line in f:
-        d = DevStage(line.strip())
-        all_dev_stages[d.stage_name] = d
+        if len(line.split("\t")) > 0:
+            d = DevStage(line.strip())
+            all_dev_stages[d.stage_name] = d
 
 
 class DataObject:
