@@ -15,7 +15,6 @@ expected_pattern = [True] * len(labels)
 expected_pattern[labels.index("gata4")] = False
 expected_pattern[labels.index("gata6")] = False
 expected_pattern[labels.index("fgf8a")] = False
-expected_pattern[labels.index("ptx2")] = False
 
 
 class SystemParameters:
@@ -54,12 +53,12 @@ class SystemParameters:
     def is_next_available(self) -> bool:
         return not (self.previous_state == self.current_state)
 
-    def next(self):
+    def next_dd(self):
         self.save_state()
         a = self.foxa2 and self.bmp4 and self.foxc1 \
             and self.gata4 and (self.gata5 or self.gata6)
-        nkx2_5 = a and self.fgf8a
 
+        nkx2_5 = a and self.fgf8a
         gata4 = self.nkx2_5
         foxa2 = self.smad2 or self.zic3
         hand2 = self.nkx2_5 or self.gata4
@@ -68,7 +67,7 @@ class SystemParameters:
         myl7 = self.nkx2_5
         ptx2 = self.smad2 and self.zic3
         smad2 = self.tdgf1
-        tdgf1 = self.zic3 or self.external
+        tdgf1 = self.zic3 and self.external
 
         self.nkx2_5 = nkx2_5
         self.gata4 = gata4
@@ -80,6 +79,37 @@ class SystemParameters:
         self.ptx2 = ptx2
         self.smad2 = smad2
         self.tdgf1 = tdgf1
+
+    def next(self):
+        self.save_state()
+        a = self.foxa2 and self.bmp4 and self.foxc1 \
+            and (self.gata5 or self.gata6)
+
+        nkx2_5 = a or self.fgf8a or self.gata4
+        gata4 = self.nkx2_5 and not self.external
+        foxa2 = self.smad2 or self.zic3
+        hand2 = self.nkx2_5 or self.gata4
+        tbx5a = self.nkx2_5
+        mef2ca = self.nkx2_5 or self.gata4
+        myl7 = self.nkx2_5
+        ptx2 = self.smad2 and self.zic3
+        smad2 = self.tdgf1
+        tdgf1 = self.zic3 and self.external
+
+        self.nkx2_5 = nkx2_5
+        self.gata4 = gata4
+        self.foxa2 = foxa2
+        self.hand2 = hand2
+        self.tbx5a = tbx5a
+        self.mef2ca = mef2ca
+        self.myl7 = myl7
+        self.ptx2 = ptx2
+        self.smad2 = smad2
+        self.tdgf1 = tdgf1
+
+        self.fgf8a = not self.external
+        self.gata6 = not self.external
+        self.zic3 = self.external
 
 
 def solve_logic():
@@ -105,8 +135,14 @@ def solve_logic():
     sns.heatmap(p, cmap=cmap, mask=mask_start != 1, annot=True, cbar=False)
     sns.heatmap(p, cmap=cmap, mask=mask_output != 1, annot=True, cbar=False)
     sns.heatmap(p, mask=mask != 1, cmap="Blues", annot=True, cbar=False)
-    ax.axvline(x=1, color='k', linestyle="--")
-    ax.axvline(x=TIME_STEPS, color='k', linestyle="--")
+
+    for i in range(TIME_STEPS + 1):
+        if i == 1:
+            ax.axvline(x=1, color='k', linestyle="--")
+        elif i == TIME_STEPS:
+            ax.axvline(x=TIME_STEPS, color='k', linestyle="--")
+        else:
+            ax.axvline(x=i, color='white', alpha=0.3)
     plt.yticks(rotation=0)
     plt.xticks([])
     plt.xlabel("Time Step")
