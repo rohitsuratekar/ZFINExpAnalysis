@@ -82,6 +82,7 @@ class SystemParameters:
 
     def next(self):
         self.save_state()
+
         a = self.foxa2 and self.bmp4 and self.foxc1 \
             and (self.gata5 or self.gata6)
 
