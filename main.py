@@ -1,8 +1,11 @@
 """
 Rohit Suratekar
-July 2018
+March 2019
+
+Sample analysis to simulate Boolean model of Zebrafish Heart Development
+
 """
 
-from analysis import logic_operation
+from analysis.boolean import run
 
-logic_operation.solve_logic()
+run()
